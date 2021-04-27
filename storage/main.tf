@@ -40,6 +40,7 @@ resource "kubernetes_persistent_volume" "my_storage_class" {
     capacity = {
       storage = "20Gi"
     }
+    storage_class_name = "default"
     access_modes = ["ReadWriteOnce"]
     persistent_volume_source {
       azure_disk {
@@ -63,6 +64,7 @@ resource "kubernetes_persistent_volume_claim" "my_pod_storage" {
         storage = "2Gi"
       }
     }
+    storage_class_name = "default"
     volume_name = kubernetes_persistent_volume.my_storage_class.metadata.0.name
   }
 }
