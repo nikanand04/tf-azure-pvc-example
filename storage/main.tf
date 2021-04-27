@@ -60,7 +60,7 @@ resource "kubernetes_persistent_volume_claim" "my_pod_storage" {
     access_modes = ["ReadWriteOnce"]
     resources {
       requests = {
-        storage = "5Gi"
+        storage = "2Gi"
       }
     }
     volume_name = kubernetes_persistent_volume.my_storage_class.metadata.0.name
