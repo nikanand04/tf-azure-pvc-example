@@ -27,7 +27,7 @@ data "terraform_remote_state" "aks" {
 
 resource "azurerm_managed_disk" "example" {
   name                 = "example"
-  location             = data.terraform_remote_state.aks.outputs.location
+  location             = data.terraform_remote_state.aks.location
   resource_group_name  = data.terraform_remote_state.aks.outputs.resource_group_name
   storage_account_type = "Standard_LRS"
   create_option        = "Empty"
