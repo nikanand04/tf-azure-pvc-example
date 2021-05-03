@@ -83,7 +83,7 @@ resource "kubernetes_deployment" "my_app_deployment" {
         volume {
           name = var.volume_name
           persistent_volume_claim {
-            claim_name = kubernetes_persistent_volume_claim.my_pod_storage.metadata[0].name
+            claim_name = data.terraform_remote_state.pvc.outputs.kubernetes_pvc_name
           }
         }
       }
