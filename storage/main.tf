@@ -15,7 +15,15 @@ provider "azurerm" {
   features {}
 }
 
-
+data "terraform_remote_state" "aks" {
+  backend = "remote"
+  config  = {
+    organization = "nikita_hashi"
+    workspaces   = {
+      name       = "terraform-provision-aks-cluster"
+    }
+  }
+}
 
 resource "azurerm_managed_disk" "example" {
   name                 = "example"
