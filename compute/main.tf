@@ -91,6 +91,16 @@ resource "kubernetes_deployment" "my_app_deployment" {
   }
 }
 
+data "terraform_remote_state" "pvc" {
+  backend = "remote"
+  config  = {
+    organization = "nikita_hashi"
+    workspaces   = {
+      name       = "tf-azure-pvc-example"
+    }
+  }
+}
+
 output "deployment_name" {
   value = kubernetes_deployment.my_app_deployment.metadata.0.name
 }
