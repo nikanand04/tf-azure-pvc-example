@@ -14,16 +14,16 @@ variable "volume_name" {
   default = "my-volume"
 }
 
-resource "kubernetes_namespace" "my_app" {
-  metadata {
-    name = "my-app"
-  }
-}
+# resource "kubernetes_namespace" "my_app" {
+#   metadata {
+#     name = "my-app"
+#   }
+# }
 
 resource "kubernetes_deployment" "my_app_deployment" {
   metadata {
     name      = "my-app-deployment"
-    namespace = kubernetes_namespace.my_app.metadata[0].name
+    namespace = "default"
   }
 
   spec {
@@ -83,10 +83,14 @@ resource "kubernetes_deployment" "my_app_deployment" {
         volume {
           name = var.volume_name
           persistent_volume_claim {
-            claim_name = var.pvc
+            claim_name = kubernetes_persistent_volume_claim.my_pod_storage.metadata[0].name
           }
         }
       }
     }
   }
+}
+
+output "deployment_name" {
+  value = kubernetes_deployment.my_app_deployment.metadata.0.name
 }
