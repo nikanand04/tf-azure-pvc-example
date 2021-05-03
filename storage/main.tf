@@ -15,20 +15,17 @@ provider "azurerm" {
   features {}
 }
 
-resource "azurerm_resource_group" "example" {
-  name     = "super-spider-rg"
-  location = "westus2"
-}
+
 
 resource "azurerm_managed_disk" "example" {
   name                 = "example"
-  location             = azurerm_resource_group.example.location
-  resource_group_name  = azurerm_resource_group.example.name
+  location             = data.terraform_remote_state.aks.outputs.resource_group_name.location
+  resource_group_name  = data.terraform_remote_state.aks.outputs.resource_group_name
   storage_account_type = "Standard_LRS"
   create_option        = "Empty"
   disk_size_gb         = "1"
   tags = {
-    environment = azurerm_resource_group.example.name
+    environment = data.terraform_remote_state.aks.outputs.resource_group_name
   }
 }
 
