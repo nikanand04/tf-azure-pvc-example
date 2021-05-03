@@ -83,7 +83,7 @@ resource "kubernetes_deployment" "my_app_deployment" {
         volume {
           name = var.volume_name
           persistent_volume_claim {
-            claim_name = data.terraform_remote_state.pvc.outputs.kubernetes_pvc_name
+            claim_name = "my-pod-storage"
           }
         }
       }
@@ -91,15 +91,6 @@ resource "kubernetes_deployment" "my_app_deployment" {
   }
 }
 
-data "terraform_remote_state" "pvc" {
-  backend = "remote"
-  config  = {
-    organization = "nikita_hashi"
-    workspaces   = {
-      name       = "tf-azure-pvc-example"
-    }
-  }
-}
 
 output "deployment_name" {
   value = kubernetes_deployment.my_app_deployment.metadata.0.name
