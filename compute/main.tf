@@ -70,9 +70,9 @@ resource "kubernetes_deployment" "my_app_deployment" {
 #               }
 #             }
 
-            initial_delay_seconds = 3
-            period_seconds        = 3
-          }
+#             initial_delay_seconds = 3
+#             period_seconds        = 3
+#           }
 
           volume_mount {
             mount_path = "/usr/share/my-app"
